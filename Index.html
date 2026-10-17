@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HOJA DE GRATUIDAD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+  <style>
+    @page { size: A4; margin: 0; }
+    html, body { height: 100%; margin: 0; font-family: 'Patrick Hand', cursive; font-size: 20px; line-height: 1.6; background: #ccc; }
+    .page { position: relative; width: 210mm; height: 297mm; margin: 0 auto; background: #fff url("page3.jpg") center/cover no-repeat; }
+    form { position: absolute; inset: 0; }
+    
+    /* Contenedores principales */
+    .nameComplete, .lastname1_container, .lastname2_container, .clave-container1, .tel-container, .date-container1, .since, .city,
+    .street, .number, .colony, .municipality, .state, .zipcode { position: absolute; display: flex; gap: 0; }
+
+    .tel-container input { width: 14px; font-size: 20px; text-align: center; }
+    
+    /* Posiciones */
+    .nameComplete { top: 281px; left: 110px; }
+    .lastname1_container { top: 281px; left: 310px; }
+    .lastname2_container { top: 281px; left: 490px; }
+    .street { top: 318px; left: 110px; }
+    .number { top: 318px; left: 270px; }
+    .colony { top: 318px; left: 310px; }
+    .municipality { top: 318px; left: 420px; }
+    .state { top: 318px; left: 530px; }
+    .zipcode { top: 318px; left: 625px; }
+    .clave-container1 { top: 395px; left: 110px; }
+    .tel-container { top: 355px; left: 180px; }
+    .date-container1 { top: 190px; right: 90px; }
+    .since { top: 705px; left: 370px; }
+    .city { top: 162px; right: 100px; }
+
+    form input { text-align: center; font-size: 16px; border: 1px solid #888; height: 22px; text-transform: uppercase; font-family: 'Patrick Hand', cursive !important; color: #000; }
+    .clave-container1 input { width: 12px; font-family: monospace !important; color: #000; }
+    .lastname1_container input { width: 170px; font-family: monospace !important; color: #000; text-align: center;}
+    .lastname2_container input { width: 170px; font-family: monospace !important; color: #000; text-align: center;}
+    .city input { width: 100px; }
+    .nameComplete input{ text-align: center; width: 190px;}
+
+    .signature-box { position: absolute; bottom: 325px; left: 150px; width: 250px; height: 100px; cursor: pointer; display: flex; justify-content: center; align-items: center; }
+    .signature-box img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+    .fullName { position: absolute; bottom: 318px; left: 150px; }
+    .fullName input { width: 240px; font-size: 14px; border: 1px solid #888; text-transform: uppercase; text-align: center; font-family: 'Patrick Hand', cursive; }
+
+    /* Dirección inputs */
+    .street input { width: 150px; }
+    .number input { width: 30px; }
+    .colony input { width: 100px; }
+    .municipality input { width: 100px; }
+    .state input { width: 90px; }
+    .zipcode input { width: 55px; }
+    .since input { width: 120px; text-align: center;}
+
+    #btnPDF { position: fixed; bottom: 20px; right: 20px; padding: 12px 18px; font-size: 16px; background: #2b6cb0; color: white; border: none; border-radius: 8px; cursor: pointer; z-index: 1000; }
+    .no-border-pdf { border: none !important; background: transparent !important; }
+    @media print { #btnPDF, #signatureModal { display: none !important; } }
+
+    /* Modal firma */
+    #signatureModal { display: none; position: fixed; z-index: 9999; inset: 0; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
+    #signatureModal .modal-content { background: #fff; padding: 16px; border-radius: 8px; width: 90%; max-width: 480px; text-align: center; }
+    #signaturePad { width: 100%; height: 220px; border: none; touch-action: none; background: transparent; }
+    
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <form>
+      <div class="city"><input type="text" placeholder="Ciudad" required></div>
+      <div class="nameComplete"><input type="text" placeholder="Nombre(s)" required></div>
+      <div class="lastname1_container"><input type="text" placeholder="Apellidos Paterno" required></div>
+        <div class="lastname2_container"><input type="text" placeholder="Apellidos Materno"></div>
+      <div class="street"><input type="text" placeholder="Calle" required></div>
+      <div class="number"><input type="text" placeholder="Número" required></div>
+      <div class="colony"><input type="text" placeholder="Colonia" required></div>
+      <div class="municipality"><input type="text" placeholder="Municipio" required></div>
+      <div class="state"><input type="text" placeholder="Estado" required></div>
+      <div class="zipcode"><input type="text" placeholder="C.P." required></div>
+      <div class="fullName"><input type="text" id="fullName" placeholder="Nombre completo"></div>
+      <div class="clave-container1">
+        <input maxlength="1"><input maxlength="1" required><input maxlength="1"><input maxlength="1" required>
+        <input maxlength="1"><input maxlength="1" required><input maxlength="1"><input maxlength="1" required>
+        <input maxlength="1"><input maxlength="1" required><input maxlength="1"><input maxlength="1" required>
+        <input maxlength="1"><input maxlength="1" required><input maxlength="1"><input maxlength="1" required>
+        <input maxlength="1"><input maxlength="1" required>
+      </div>
+      <div class="tel-container">
+        <input maxlength="1"><input maxlength="1"><input maxlength="1"><input maxlength="1">
+        <input maxlength="1"><input maxlength="1"><input maxlength="1"><input maxlength="1">
+        <input maxlength="1"><input maxlength="1">
+      </div>
+      <div class="date-container1"><input type="date" required></div>
+      <div class="since"><input type="text"></div>
+<div class="signature-box" id="sigBox1" data-required="true">
+  <img id="firma1" alt="Firma">
+</div>
+    </form>
+  </div>
+
+  <div id="signatureModal">
+    <div class="modal-content">
+      <p><strong>Firme dentro del recuadro</strong></p>
+      <canvas id="signaturePad"></canvas>
+      <div style="margin-top:10px;">
+        <button id="clearBtn" style="background:#e74c3c;color:#fff;padding:8px 12px;border:none;border-radius:6px;">Limpiar</button>
+        <button id="saveBtn" style="background:#2ecc71;color:#fff;padding:8px 12px;border:none;border-radius:6px;">Guardar</button>
+        <button id="closeBtn" style="background:#7f8c8d;color:#fff;padding:8px 12px;border:none;border-radius:6px;">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <button id="btnPDF">Descargar GRATUIDAD.pdf</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+
+  <script>
+    // Firma
+    const modal = document.getElementById('signatureModal');
+    const signaturePad = document.getElementById('signaturePad');
+    const ctx = signaturePad.getContext('2d');
+    const firma1 = document.getElementById('firma1');
+    const sigBox1 = document.getElementById('sigBox1');
+    let drawing = false;
+
+    function resizeSignaturePad() {
+      const rect = signaturePad.getBoundingClientRect();
+      signaturePad.width = rect.width;
+      signaturePad.height = rect.height;
+      ctx.lineWidth = 2;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = '#000';
+      ctx.clearRect(0,0,signaturePad.width, signaturePad.height);
+    }
+
+    sigBox1.addEventListener('click', () => { modal.style.display = 'flex'; resizeSignaturePad(); });
+    document.getElementById('closeBtn').onclick = () => modal.style.display = 'none';
+    document.getElementById('clearBtn').onclick = () => ctx.clearRect(0,0,signaturePad.width, signaturePad.height);
+    document.getElementById('saveBtn').onclick = () => { firma1.src = signaturePad.toDataURL('image/png'); modal.style.display = 'none'; };
+
+    function getPos(e, canvas) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = (e.touches ? e.touches[0].clientX : e.clientX);
+      const clientY = (e.touches ? e.touches[0].clientY : e.clientY);
+      return { x: clientX - rect.left, y: clientY - rect.top };
+    }
+
+    function startDraw(e){ drawing = true; const p=getPos(e,signaturePad); ctx.beginPath(); ctx.moveTo(p.x,p.y); e.preventDefault();}
+    function draw(e){ if(!drawing)return; const p=getPos(e,signaturePad); ctx.lineTo(p.x,p.y); ctx.stroke(); e.preventDefault();}
+    function endDraw(){ drawing=false; ctx.beginPath(); }
+
+    signaturePad.addEventListener('mousedown', startDraw);
+    signaturePad.addEventListener('mousemove', draw);
+    signaturePad.addEventListener('mouseup', endDraw);
+    signaturePad.addEventListener('mouseout', endDraw);
+    signaturePad.addEventListener('touchstart', startDraw, { passive:false });
+    signaturePad.addEventListener('touchmove', draw, { passive:false });
+    signaturePad.addEventListener('touchend', endDraw);
+
+async function generatePDF() {
+  // 🔸 Verificar campos requeridos antes de continuar
+  const requiredInputs = document.querySelectorAll('form input[required]');
+  let allFilled = true;
+  let firstEmpty = null;
+
+  requiredInputs.forEach(input => {
+    if (!input.value.trim()) {
+      allFilled = false;
+      if (!firstEmpty) firstEmpty = input;
+      input.style.border = '2px solid red';
+    } else {
+      input.style.border = '1px solid #888';
+    }
+  });
+
+  // 🔸 Verificar si la firma está vacía (firma requerida)
+  const signatureBoxes = document.querySelectorAll('.signature-box[data-required="true"]');
+  signatureBoxes.forEach(box => {
+    const img = box.querySelector('img');
+    if (!img || !img.src || img.src.length < 50) {
+      allFilled = false;
+      box.style.outline = '3px solid red';
+    } else {
+      box.style.outline = 'none';
+    }
+  });
+
+  if (!allFilled) {
+    alert("⚠️ Por favor, completa todos los campos requeridos (incluida la firma).");
+    if (firstEmpty) firstEmpty.focus();
+    return;
+  }
+
+  // 🔸 Concatenar nombre completo antes de generar PDF
+  const name = document.querySelector('.nameComplete input')?.value.trim() || '';
+  const lastname1 = document.querySelector('.lastname1_container input')?.value.trim() || '';
+  const lastname2 = document.querySelector('.lastname2_container input')?.value.trim() || '';
+  const fullName = [name, lastname1, lastname2].filter(Boolean).join(' ');
+  const fullNameInput = document.getElementById('fullName');
+  if (fullNameInput) fullNameInput.value = fullName.toUpperCase();
+
+  // 🔸 Continuar con la generación del PDF
+  modal.style.display = 'none';
+  const allInputs = document.querySelectorAll('form input');
+  allInputs.forEach(i => i.classList.add('no-border-pdf'));
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF('p', 'mm', 'a4');
+  const page = document.querySelector('.page');
+  const canvas = await html2canvas(page, { scale: 2, useCORS: true });
+  const imgData = canvas.toDataURL('image/png');
+  const pdfWidth = doc.internal.pageSize.getWidth();
+  const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+  doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+
+  const pdfBlob = doc.output('blob');
+  const nombreCampo = fullName || 'GRATUIDAD';
+  const nombreArchivo = `Carta de gratuidad de - ${nombreCampo.toUpperCase()}.pdf`;
+
+  saveAs(pdfBlob, nombreArchivo);
+
+  allInputs.forEach(i => i.classList.remove('no-border-pdf'));
+}
+
+    document.getElementById('btnPDF').addEventListener('click', () => generatePDF());
+
+    // Auto-tab y mayúsculas
+    function setupAutoTab(containerSelector) {
+      const inputs = document.querySelectorAll(`${containerSelector} input`);
+      inputs.forEach((input, index) => {
+        input.addEventListener('input', () => { if(input.value.length>=input.maxLength && inputs[index+1]) inputs[index+1].focus(); });
+        input.addEventListener('keydown', (e) => { if(e.key==='Backspace' && input.value==='' && inputs[index-1]) inputs[index-1].focus(); });
+      });
+    }
+    setupAutoTab('.tel-container');
+    setupAutoTab('.clave-container1');
+    document.querySelectorAll('.clave-container1 input').forEach(inp => inp.addEventListener('input', ()=>{ inp.value = inp.value.toUpperCase(); }));
+
+    // Mes actual
+    const sinceInput = document.querySelector('.since input');
+    if(sinceInput){
+      const meses=["ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"];
+      sinceInput.value = meses[new Date().getMonth()];
+    }
+    // Forzar uppercase en todos los inputs de texto
+document.querySelectorAll('form input[type="text"]').forEach(input => {
+  input.addEventListener('input', () => {
+    input.value = input.value.toUpperCase();
+  });
+});
+
+  </script>
+</body>
+</html>
